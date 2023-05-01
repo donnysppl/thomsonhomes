@@ -1,0 +1,83 @@
+@media only screen and (max-width: 990.99px){
+    /* header */
+    .menu-btn-thomson svg {
+        font-size: 22px;
+    }
+    .menu-thomson .menu-btn-thomson{
+        display: block;
+    }
+    .menu-thomson .mega-menu-thomson .menu-btn-thomson{
+        display: block;
+        font-size: 16px;
+    }
+    .menu-thomson .mega-menu-thomson.responsive{
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--bg-dark);
+        left: -100%;
+        top: 0;
+        z-index: 10;
+        transition: all 0.5s;
+        padding: 20px 20px;
+        overflow-y: scroll;
+    }
+    .menu-thomson .mega-menu-thomson.responsive.show{
+        display: block;
+        left: 0%;
+    }
+    li.menu-btn-close{
+        display: block;
+        position: absolute;
+        top: 0%;
+        right: 0%;
+        width: 50px;
+        height: 50px;
+    }
+    li.menu-btn-close svg{
+        font-size: 24px;
+    }
+    .mega-menu-inner ul.mega-menu-inner-ul.TV {
+        flex-wrap: wrap;
+        justify-content: start;
+        width: 100%;
+        gap: 1%;
+    }
+    .mega-menu-inner ul.mega-menu-inner-ul.TV li {
+        width: 49%;
+    }
+    .mega-menu-thomson li:hover .mega-menu-inner {
+        height: auto;
+        position: inherit;
+    }
+    .mega-menu-thomson li, .mega-menu-inner ul.mega-menu-inner-ul.TV li a{
+        font-size: 0.9rem;
+    }
+    .mega-menu-inner ul.mega-menu-inner-ul.TV li {
+        padding: 8px;
+    }
+
+    ul.mega-menu-inner-ul.Appliances{
+        width: 100%;
+        flex-direction: column;
+        padding: 0 15px;
+    }
+    ul.mega-menu-inner-ul.Appliances li.submenu-heading{
+        width: 100%;
+        padding-bottom: 8px;
+    }
+    ul.mega-menu-inner-ul.Appliances li.submenu-heading:not(:last-child){
+        border-bottom: 1px solid #363636;
+    }
+    ul.submenu-sublist li a{
+        font-size: 0.8rem;
+    }
+    .navbar {
+        padding: 10px 8px;
+        border-bottom: 1px solid #363636;
+    }
+    .logo-img {
+        padding: 0;
+        width: 120px;
+    }
+}

@@ -1,0 +1,151 @@
+/* dashboard css */
+.dashboard {
+    background-color: var(--bg-dark);
+    height: 100vh;
+    overflow-y: scroll;
+}
+.dashboard ul li{
+    list-style-type: none;
+}
+.dashboard .masterlayout{
+    height: 100vh;
+    overflow-y: scroll;
+}
+.dashboard .dashboard-bg{
+    background-color: var(--bg-dark);
+    color: var(--text-col-light);
+}
+.dashboard .dashboard-bg-light{
+    background-color: var(--bg-light);
+    color: var(--text-col-light);
+}
+.dashboard .dashboard-heading-color{
+    color: var(--text-col-dark);
+}
+.dashboard .dashboard-login{
+    width: 100%;
+    height: 100vh;
+    padding-top: 10vh;
+}
+.dashboard .wrapper{
+    padding: 5%;
+    background-color: var(--bg-light);
+    border-radius: 10px;
+}
+.dashboard .form-control {
+    padding: 0.6rem 1rem;
+    background-color: transparent;
+    background: transparent;
+    color: var(--text-col-light);
+    border-color: var(--text-col-light);
+}
+.dashboard .form-control:focus, .dashboard .form-control:autofill, .dashboard .form-control:-webkit-autofill, 
+.dashboard .form-control:-internal-autofill-selected,
+.dashboard .form-control:-webkit-autofill:hover, 
+.dashboard .form-control:-webkit-autofill:focus{
+    background-color: transparent;
+    background: transparent;
+    color: var(--text-col-light);
+    border-color: var(--text-col-light);
+    box-shadow: none;
+}
+.dashboard .pass-showhide {
+    position: absolute;
+    right: 16px;
+    top: 45%;
+    transform: translateY(-50%);
+    font-size: 1.4rem;
+}
+.dashboard .sidebar-left {
+    position: fixed;
+    width: 300px;
+    padding: 20px 20px;
+    height: 100vh;
+}
+.dashboard .sidebar-right{
+    width: calc(100% - 300px);
+    margin-left: auto;
+}
+.dashboard .logo-part{
+    padding: 10px;
+}
+.dashboard li.nav-item:hover , .dashboard li.nav-item .nav-link.active{
+    border-radius: 5px;
+    background-color: var(--text-col-light);
+    color: var(--bg-dark);
+    font-weight: 600;
+}
+.dashboard li.nav-item .nav-link{
+    color: var(--text-col-light);
+    font-weight: 600;
+}
+.dashboard li.nav-item:hover .nav-link{
+    color: var(--bg-dark);
+}
+.dashboard .action-header-inner-div{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+}
+.dashboard .data-table-img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    object-position: center;
+}
+.dashboard .img-input-outer {
+    border: 1px solid var(--text-col-light);
+    border-radius: 10px;
+    padding: 20px;
+}
+.dashboard .img-input-outer svg{
+    width: 100px;
+}
+.dashboard input.form-control.img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.dashboard .delete-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    color: #fff;
+    border-radius: 50%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    cursor: pointer;
+}
+.dashboard .card {
+    padding: 0;
+    background-color: var(--bg-light);
+    border-color: var(--text-col-light);
+    color: var(--text-col-light);
+}
+.dashboard .card-body {
+    padding: 10px;
+    color: var(--text-col-light);
+}
+.dashboard .card-body ul{
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+    margin-bottom: 0;
+    gap: 15px;
+    font-size: 1.25rem;
+}
+.dashboard .card-body ul li{
+    cursor: pointer;
+}
+.dashboard .card-body svg{
+    color: var(--text-col-light);
+}
+.form-text{
+    color: var(--text-col-light);
+}

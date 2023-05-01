@@ -1,0 +1,158 @@
+[
+    {
+        "name" : "Demo Brand Store",
+        "slug" : "demo-brand-store",
+        "imagedata" : [
+            {
+                "index" : 1,
+                "data" : [
+                    {
+                        "imgurl" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_01.webp",
+                        "imglink" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_01.webp",
+                        "index" : 1
+                    }
+                ]
+            },
+            {
+                "index" : 2,
+                "data" : [
+                    {
+                        "imgurl" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "imglink" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "index" : 1
+                    }
+                ]
+            },
+            {
+                "index" : 3,
+                "data" : [
+                    {
+                        "imgurl" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_01.webp",
+                        "imglink" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_01.webp",
+                        "index" : 1
+                    }
+                ]
+            },
+            {
+                "index" : 4,
+                "data" : [
+                    {
+                        "imgurl" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "imglink" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "index" : 1
+                    }
+                ]
+            }
+            
+        ]
+    },
+    {
+        "name" : "Demo Brand Store 2",
+        "slug" : "demo-store-2",
+        "imagedata" : [
+            {
+                "index" : 1,
+                "data" : [
+                    {
+                        "imgurl" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_01.webp",
+                        "imglink" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_01.webp",
+                        "index" : 1
+                    }
+                ]
+            },
+            {
+                "index" : 2,
+                "data" : [
+                    {
+                        "imgurl" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "imglink" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "index" : 1
+                    }
+                ]
+            },
+            {
+                "index" : 3,
+                "data" : [
+                    {
+                        "imgurl" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_01.webp",
+                        "imglink" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_01.webp",
+                        "index" : 1
+                    }
+                ]
+            },
+            {
+                "index" : 4,
+                "data" : [
+                    {
+                        "imgurl" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "imglink" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "index" : 1
+                    }
+                ]
+            }
+            
+        ]
+    },
+    {
+        "name" : "Demo Brand Store 3",
+        "slug" : "demo-brand-3",
+        "imagedata" : [
+            {
+                "index" : 1,
+                "data" : [
+                    {
+                        "imgurl" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_01.webp",
+                        "imglink" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_01.webp",
+                        "index" : 1
+                    }
+                ]
+            },
+            {
+                "index" : 2,
+                "data" : [
+                    {
+                        "imgurl" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "imglink" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "index" : 1
+                    },
+                    {
+                        "imgurl" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "imglink" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "index" : 1
+                    }
+                ]
+            },
+            {
+                "index" : 3,
+                "data" : [
+                    {
+                        "imgurl" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_01.webp",
+                        "imglink" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_01.webp",
+                        "index" : 1
+                    }
+                ]
+            },
+            {
+                "index" : 4,
+                "data" : [
+                    {
+                        "imgurl" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "imglink" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "index" : 1
+                    },
+                    {
+                        "imgurl" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "imglink" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "index" : 1
+                    },
+                    {
+                        "imgurl" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "imglink" : "https://thomsonhome.in//wp-content/uploads/2023/04/Thomson-Brand-Store2_02-1-jpg.webp",
+                        "index" : 1
+                    }
+                ]
+            }
+            
+        ]
+    }
+]
