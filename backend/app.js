@@ -1,7 +1,10 @@
 const express = require("express");
 var cors = require('cors')
 const app = express();
-
+const path = require('path');
+require('dotenv').config({
+    path: path.join(__dirname, '.env')
+});
 const port = 8000;
 const userRoute = require("./routes/users");
 const prodRoute = require("./routes/productRoutes");
@@ -13,11 +16,6 @@ const seoRoute = require("./routes/seoRoute");
 
 var bodyParser = require('body-parser');
 const passport = require('passport');
-
-const path = require('path');
-require('dotenv').config({
-    path: path.join(__dirname, '.env')
-});
 
 app.use(cors());
 app.use(passport.initialize());
