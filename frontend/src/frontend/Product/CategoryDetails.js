@@ -9,12 +9,14 @@ export default function CategoryDetails() {
   const { nodeurl } = Common();
   const { slug } = useParams();
 
+  const category = slug;
+
   const [prodListData, setprodListData] = useState();
   const [loader, setloader] = useState(true);
 
   useEffect(() => {
     const prodListDatabyCate = async () => {
-      await fetch(nodeurl + `product/list/${slug}`, {
+      await fetch(nodeurl + `product/list/${category}`, {
         method: 'GET',
       }).then(res => res.json())
         .then(res => {
@@ -41,7 +43,7 @@ export default function CategoryDetails() {
         <div className="container">
           <div className="row">
             <h2 className="section-main-headimg dark pb-5">
-              {slug}
+              {category}
             </h2>
           </div>
           <div className="row position-relative">

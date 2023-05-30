@@ -95,13 +95,14 @@ export default function Home() {
             method: 'GET',
         }).then(res => res.json())
             .then(res => {
-                console.log(res);
+                // console.log(res);
                 if (res.status === 200) {
                     const data = res.response;
                     const filterData = data.filter((item) => {
                         return item.parentcate === false;
                     });
                     setcategoryData(filterData);
+                    console.log(filterData);
                 }
                 else {
                     alert(res.message);
@@ -122,7 +123,8 @@ export default function Home() {
             .then(res => {
                 console.log(res);
                 if (res.status === 200) {
-                    setprodData(res.response);
+                    const data = res && res.response.slice(0, 10);
+                    setprodData(data);
                 }
                 else {
                     alert(res.message);
@@ -176,18 +178,19 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="container ">
-                    <div className="row">
+                    <div className="row category-card-home">
                         {
                             categoryData && categoryData.map((item, index) => {
                                 return (
                                     <div key={index} className="col-3 p-0 category-card-col">
-                                        <Link to={`/category/${item.slug}`}>
+
+                                        <Link to={`/category/${item.name}`}>
                                             <div className="category-card bg-dark text-col-dark position-relative">
                                                 <svg className="category-top-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill="#D0021B" d="M47.3,-24.4C50.4,-5.7,34.7,10.2,14.8,25.9C-5,41.6,-28.9,57.1,-42.8,49.3C-56.6,41.5,-60.4,10.3,-51.6,-16.2C-42.8,-42.7,-21.4,-64.5,0.3,-64.6C22.1,-64.7,44.1,-43.1,47.3,-24.4Z" transform="translate(100 100)" />
                                                 </svg>
                                                 <div className="category-card-img-part">
-                                                    <img src={nodeurl + item.cateimg} alt={item.name} className="img-fluid w-100" />
+                                                    <img src={item.cateimg} alt={item.name} className="img-fluid w-100" />
                                                 </div>
                                                 <div className="category-card-text-part">
                                                     <h4>{item.name}</h4>
@@ -206,10 +209,10 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="ptb-5">
-                <div className="container">
+            <section className="">
+                <div className="container-fluid">
                     <div className="row">
-                        <div className="col-12">
+                        <div className="col-12 p-0">
                             <video width="100%" autoPlay muted loop id="thomsonVideo" >
                                 <source src={Video} type="video/mp4" />
                             </video>
@@ -232,7 +235,27 @@ export default function Home() {
                     <div className="row">
                         <div className="col-12">
                             <Swiper
-                                slidesPerView={4}
+                                breakpoints={{
+                                    320: {
+                                        slidesPerView: 2,
+                                    },
+                                    480: {
+                                        slidesPerView: 2,
+                                    },
+                                    600: {
+                                        slidesPerView: 2,
+                                    },
+                                    768: {
+                                        slidesPerView: 3,
+                                    },
+                                    1024: {
+                                        slidesPerView: 3,
+                                    },
+                                    1200: {
+                                        slidesPerView: 4,
+                                    },
+                                }}
+
                                 spaceBetween={20}
                                 pagination={{
                                     clickable: true,

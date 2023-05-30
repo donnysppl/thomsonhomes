@@ -48,20 +48,48 @@ import ContactFront from './dashboard/Contact/ContactFront';
 import BrandStore from './frontend/brand-store/BrandStore';
 import SingleBrandStore from './frontend/brand-store/SingleBrandStore';
 
-import SeoIndex from './dashboard/Seo/Index';
-import AddSeo from './dashboard/Seo/AddSeo';
-import EditSeo from './dashboard/Seo/EditSeo';
+import BrandStoreIndex from './dashboard/BrandStore/Index'
+import BrandStoreAdd from './dashboard/BrandStore/AddBS'
+
+import EditBs from './dashboard/BrandStore/EditBs';
+import Common from './Common';
+import { useState } from 'react';
+
+
 
 function App() {
 
+  const { tokenValue } = Common();
+  const [auth, setauth] = useState(false);
+
   useEffect(() => {
-    
+
+    // if(window.localStorage.getItem("token") || tokenValue){
+    //   setauth(true);
+    // }
+    // else{
+    //   setauth(false);
+    // }
+
     // const adminUrl = window.location.pathname.split( '/' );
     // if(adminUrl[1] === 'admin'){
     //   console.log(adminUrl[1] === 'admin');
     //   document.body.classList.add('dashboard');
     // }
   }, [])
+
+  function AdminUser({ children }) {
+  
+      if (window.localStorage.getItem("token") || tokenValue) {
+        return <>{children}</>;
+      }
+      else {
+        return <>
+          <Navigate to="/loginadmin" replace={true} />
+        </>;
+      }
+  
+  }
   
 
   return (
@@ -80,7 +108,7 @@ function App() {
           <Route path='/category/:slug' exact element={<CategoryDetails />} />
           <Route path='/product/:id' exact element={<ProductDetails />} />
 
-          <Route path='/brand-store' exact element={<BrandStore />} />
+          {/* <Route path='/brand-store' exact element={<BrandStore />} /> */}
           <Route path='/brand-store/:slug' exact element={<SingleBrandStore />} />
 
           <Route
@@ -92,33 +120,38 @@ function App() {
 
         <Route path='/demo' exact element={<Demo />} />
         <Route path='/loginadmin' exact element={<Login />} />
-        <Route path='/admin' exact element={<MasterLayout />} >
+        <Route path='/admin' exact element={<AdminUser><MasterLayout /></AdminUser>} >
 
-          <Route path='/admin/dashboard' exact element={<Dashboard />} />
-          <Route path='/admin/product' exact element={<Product />} />
-          <Route path='/admin/product/add' exact element={<AddNewProd />} />
-          <Route path='/admin/product/add/img/:id' exact element={<AddProdImg />} />
-          <Route path='/admin/product/edit/:id' exact element={<EditProduct />} />
-          <Route path='/admin/product/edit/img/:id' exact element={<EditProdimg />} />
+          <Route path='/admin/dashboard' exact element={<AdminUser><Dashboard /></AdminUser>} />
+          <Route path='/admin/product' exact element={<AdminUser><Product /></AdminUser>} />
+          <Route path='/admin/product/add' exact element={<AdminUser><AddNewProd /></AdminUser>} />
+          <Route path='/admin/product/add/img/:id' exact element={<AdminUser><AddProdImg /></AdminUser>} />
+          <Route path='/admin/product/edit/:id' exact element={<AdminUser><EditProduct /></AdminUser>} />
+          <Route path='/admin/product/edit/img/:id' exact element={<AdminUser><EditProdimg /></AdminUser>} />
 
-          <Route path='/admin/category' exact element={<Category />} />
-          <Route path='/admin/category/add' exact element={<Addnewcat />} />
-          <Route path='/admin/category/edit/:id' exact element={<Editnewcat />} />
+          <Route path='/admin/category' exact element={<AdminUser><Category /></AdminUser>} />
+          <Route path='/admin/category/add' exact element={<AdminUser><Addnewcat /></AdminUser>} />
+          <Route path='/admin/category/edit/:id' exact element={<AdminUser><Editnewcat /></AdminUser>} />
 
-          <Route path='/admin/pages' exact element={<Pages />} />
-          <Route path='/admin/pages/add' exact element={<AddPage />} />
-          <Route path='/admin/pages/edit/:id' exact element={<EditPage />} />
+          <Route path='/admin/pages' exact element={<AdminUser><Pages /></AdminUser>} />
+          <Route path='/admin/pages/add' exact element={<AdminUser><AddPage /></AdminUser>} />
+          <Route path='/admin/pages/edit/:id' exact element={<AdminUser><EditPage /></AdminUser>} />
 
-          <Route path='/admin/banner' exact element={<Banner />} />
-          <Route path='/admin/banner/add' exact element={<AddBanner />} />
-          <Route path='/admin/banner/edit/:id' exact element={<EditBanner />} />
+          <Route path='/admin/banner' exact element={<AdminUser><Banner /></AdminUser>} />
+          <Route path='/admin/banner/add' exact element={<AdminUser><AddBanner /></AdminUser>} />
+          <Route path='/admin/banner/edit/:id' exact element={<AdminUser><EditBanner /></AdminUser>} />
 
-          <Route path='/admin/media' exact element={<MediaIndex />} />
-          <Route path='/admin/media/add' exact element={<AddMedia />} />
-          <Route path='/admin/media/edit/:id' exact element={<EditMedia />} />
+          <Route path='/admin/media' exact element={<AdminUser><MediaIndex /></AdminUser>} />
+          <Route path='/admin/media/add' exact element={<AdminUser><AddMedia /></AdminUser>} />
+          <Route path='/admin/media/edit/:id' exact element={<AdminUser><EditMedia /></AdminUser>} />
 
-          <Route path='/admin/contact' exact element={<ContactIndex />} />
-          <Route path='/admin/contact/frontdata' exact element={<ContactFront />} />
+          <Route path='/admin/brand-store' exact element={<AdminUser><BrandStoreIndex /></AdminUser>} />
+          <Route path='/admin/brand-store/add' exact element={<AdminUser><BrandStoreAdd /></AdminUser>} />
+          <Route path='/admin/brand-store/edit/:id' exact element={<AdminUser><EditBs /></AdminUser>} />
+
+
+          <Route path='/admin/contact' exact element={<AdminUser><ContactIndex /></AdminUser>} />
+          <Route path='/admin/contact/frontdata' exact element={<AdminUser><ContactFront /></AdminUser>} />
 
           {/* <Route path='/admin/seo' exact element={<SeoIndex />} />
           <Route path='/admin/seo/add' exact element={<AddSeo />} />

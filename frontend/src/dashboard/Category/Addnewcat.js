@@ -30,8 +30,6 @@ export default function Addnewcat() {
 
     }, [])
 
-
-    const [previewImg, setpreviewImg] = useState([]);
     const [catagimg, setcatagimg] = useState();
 
     const [checkboxVal, setcheckboxVal] = useState(false);
@@ -48,15 +46,8 @@ export default function Addnewcat() {
         metatitle: '',
         metadescription: '',
         metakeywords: '',
+        cateimg: '',
     });
-
-    const imageHandle = (e) => {
-        console.log(e.target.files[0]);
-        const file = e.target.files[0];
-        setpreviewImg(window.URL.createObjectURL(file));
-        setcatagimg(file)
-
-    }
 
     const checkboxHandle = (e) => {
         const checkbox = document.getElementById('parentcate').checked;
@@ -74,25 +65,24 @@ export default function Addnewcat() {
 
     const addCategoryHandle = async (e) => {
         e.preventDefault();
-        const formdata = new FormData();
-        formdata.append('link', inpVal.link);
-        formdata.append('name', inpVal.name);
-        formdata.append('order', inpVal.order);
-        formdata.append('slug', inpVal.slug);
-        formdata.append('parentcate', checkboxVal);
-        formdata.append('childcate', inpVal.childcate);
-        formdata.append('cateimg', catagimg);
-        formdata.append('metatitle', inpVal.metatitle);
-        formdata.append('metadescription', inpVal.metadescription);
-        formdata.append('metakeywords', inpVal.metakeywords);
 
-        for (var pair of formdata.entries()) {
-            console.log(pair[1]);
+        const data = {
+            link: inpVal.link,
+            name: inpVal.name,
+            order: inpVal.order,
+            slug: inpVal.slug,
+            parentcate: checkboxVal,
+            childcate: inpVal.childcate,
+            cateimg: inpVal.catagimg,
+            metatitle: inpVal.metatitle,
+            metadescription: inpVal.metadescription,
+            metakeywords: inpVal.metakeywords,
         }
 
         await fetch(nodeurl + 'product/category/add', {
             method: 'POST',
-            body: formdata,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
         }).then(res => res.json())
             .then(res => {
                 console.log(res);
@@ -101,7 +91,9 @@ export default function Addnewcat() {
                         'Saved',
                         res.message,
                         'success'
-                    )
+                    ).then(function(){
+                        window.location.reload();
+                    })
                 }
                 else {
                     Swal.fire({
@@ -153,9 +145,14 @@ export default function Addnewcat() {
                                             <input type="number" className="form-control" id="order" name='order' onChange={inputHandle} />
                                         </div>
                                         <div className="mb-3">
+                                            <label htmlFor="cateimg" className="form-label">Category Image link</label>
+                                            <input type="text" className="form-control" id="cateimg" name='cateimg' onChange={inputHandle} />
+                                        </div>
+                                        <div className="mb-3">
                                             <label htmlFor="link" className="form-label">Category Page Link</label>
                                             <input type="text" className="form-control" id="link" name='link' onChange={inputHandle} />
                                         </div>
+
                                         <div className="mb-3">
                                             <div className="form-check">
                                                 <input className="form-check-input" type="checkbox" name='parentcate' id="parentcate"
@@ -182,41 +179,6 @@ export default function Addnewcat() {
                                                 </div> : null
                                         }
 
-
-                                        <div className="mb-3 position-relative">
-                                            <label htmlFor="link" className="form-label">Image</label>
-                                            <div className="img-input-outer text-center position-relative">
-                                                <input type="file" accept="image/*" className="form-control img"
-                                                    name="cateimg" onChange={imageHandle}
-                                                />
-                                                <div className="img-input-inner text-center">
-                                                    <div className="img-input-inner-text">
-                                                        <svg className="mx-auto" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                                        </svg>
-                                                        <div className="text-center">
-                                                            <div>
-                                                                Upload a fileNo file chosen or drag and drop
-                                                            </div>
-                                                            <div>
-                                                                PNG, JPG, GIF, WEBP (Prefer to use WEBP format)
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="img-preview">
-                                                <ul className='ps-0 d-flex'>
-                                                    {
-                                                        previewImg ?
-                                                            <li className="mt-2 w-25"><img src={previewImg} className="img-fluid" /></li>
-                                                            : null
-                                                    }
-                                                </ul>
-                                            </div>
-                                        </div>
 
                                         <button type="submit" className="btn btn-light ">Submit</button>
                                     </form>

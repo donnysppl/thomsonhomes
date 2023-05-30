@@ -81,7 +81,7 @@ export default function Contact() {
                 description={contactData && contactData.metadiscrip} keywoard={contactData && contactData.metakeyword} />
 
             <section className='gray-light ptb-4'>
-                <div className="container">
+                <div className="container media-col-div">
                     <div className="row">
                         <div className="col-lg-6 col-md-6">
                             <div className="contact-support-text"
@@ -89,7 +89,7 @@ export default function Contact() {
 
                         </div>
                         <div className="col-lg-6 col-md-6">
-                            <form onSubmit={frontContactHandle}>
+                            <form onSubmit={frontContactHandle} className='contact-form'>
                                 <div className="mb-3">
                                     <label htmlFor="name" className="form-label">Name</label>
                                     <input type="text" className="form-control" id="name" name='name' onChange={contactInpHandle} />
@@ -102,12 +102,12 @@ export default function Contact() {
                                     <label htmlFor="number" className="form-label">Number</label>
                                     <input type="number" className="form-control" id="number" name="number" onChange={contactInpHandle} />
                                 </div>
-                                <div className="mb-3">
+                                <div className="mb-4">
                                     <label htmlFor="message" className="form-label">Message</label>
-                                    <textarea className="form-control" id='message' name='message' onChange={contactInpHandle} ></textarea>
+                                    <textarea className="form-control" id='message' name='message' rows={'5'} onChange={contactInpHandle} ></textarea>
                                 </div>
 
-                                <button type="submit" className="btn btn-primary">Submit</button>
+                                <button type="submit" className="frontweb-button text-white">Submit</button>
                             </form>
                         </div>
                     </div>

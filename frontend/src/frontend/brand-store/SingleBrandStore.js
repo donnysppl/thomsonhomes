@@ -1,17 +1,44 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import BannerStoreData from './BrandStore.json';
 import { useParams } from 'react-router-dom';
+import Common from '../../Common';
+import Swal from 'sweetalert2';
 
 export default function SingleBrandStore() {
 
     const { slug } = useParams();
-    const bannerData = BannerStoreData.filter((item) => {
-        return item.slug === slug
-    });
+    const { nodeurl } = Common();
 
-    const brandStoreImage = bannerData[0].imagedata;
-    // console.log(brandStoreImage)
+    const [bsData, setbsData] = useState([]);
 
+    useEffect(() => {
+        bsDataFetch();
+    }, [])
+
+    const bsDataFetch = async () => {
+        await fetch(nodeurl + `brand-store/listslug/${slug}`, {
+            method: 'GET',
+        }).then(res => res.json())
+            .then(res => {
+                console.log(res);
+                if (res.status === 200) {
+                    setbsData(res.result[0].brandstoredata);
+                }
+                else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: res.message,
+                    }).then((function () {
+                        window.location.reload();
+                    }))
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+    // console.log(bsData)
     return (
         <>
             <section>
@@ -19,58 +46,52 @@ export default function SingleBrandStore() {
                     <div className="row">
 
                         {
-                            brandStoreImage && brandStoreImage.map((item, index) => {
-                                console.log(item.data.length)
-                                if(item.data.length === 1){
+                            bsData && bsData.map((item, index) => {
+                                if (item.sectionsize === 'full') {
                                     return (
                                         <>
-                                        
                                             <div className="col-12 p-0">
                                                 <div key={index} className="img-part">
-                                                    <img src={item.data[0].imgurl} alt={item.data[0].imgurl} className='img-fluid w-100' />
+                                                    <img src={item.imageurl} alt={item.imgurl} className='img-fluid w-100' />
                                                 </div>
                                             </div>
                                         </>
                                     )
                                 }
-                                else if(item.data.length === 2){
+                                else if (item.sectionsize === 'twopart') {
                                     return (
                                         <>
-                                            <div className="col-6 p-0">
-                                                <div key={index} className="img-part">
-                                                    <img src={item.data[0].imgurl} alt={item.data[0].imgurl} className='img-fluid w-100' />
-                                                </div>
-                                            </div>
-                                            <div className="col-6 p-0">
-                                                <div key={index} className="img-part">
-                                                    <img src={item.data[1].imgurl} alt={item.data[1].imgurl} className='img-fluid w-100' />
+                                            <div key={index} className="col-6 p-0">
+                                                <div className="img-part">
+                                                    <img src={item.imageurl} alt={item.imgurl} className='img-fluid w-100' />
                                                 </div>
                                             </div>
                                         </>
                                     )
                                 }
-                                else if(item.data.length === 3){
+                                else if (item.sectionsize === 'threepart') {
                                     return (
                                         <>
-                                            <div className="col-4 p-0">
-                                                <div key={index} className="img-part">
-                                                    <img src={item.data[0].imgurl} alt={item.data[0].imgurl} className='img-fluid w-100' />
-                                                </div>
-                                            </div>
-                                            <div className="col-4 p-0">
-                                                <div key={index} className="img-part">
-                                                    <img src={item.data[1].imgurl} alt={item.data[1].imgurl} className='img-fluid w-100' />
-                                                </div>
-                                            </div>
-                                            <div className="col-4 p-0">
-                                                <div key={index} className="img-part">
-                                                    <img src={item.data[2].imgurl} alt={item.data[2].imgurl} className='img-fluid w-100' />
+                                            <div key={index} className="col-4 p-0">
+                                                <div  className="img-part">
+                                                    <img src={item.imageurl} alt={item.imgurl} className='img-fluid w-100' />
                                                 </div>
                                             </div>
                                         </>
                                     )
                                 }
-                                
+                                else if (item.sectionsize === 'fourpart') {
+                                    return (
+                                        <>
+                                            <div key={index} className="col-3 p-0">
+                                                <div  className="img-part">
+                                                    <img src={item.imageurl} alt={item.imgurl} className='img-fluid w-100' />
+                                                </div>
+                                            </div>
+                                        </>
+                                    )
+                                }
+
                             })
                         }
 

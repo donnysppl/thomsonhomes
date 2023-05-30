@@ -13,6 +13,7 @@ const pagesRoute = require("./routes/pagesRoute");
 const contactRoute = require("./routes/contactRoute");
 const mediaRoute = require("./routes/mediaRoute");
 const seoRoute = require("./routes/seoRoute");
+const brandstoreRoute = require("./routes/brandstoreRoute");
 
 var bodyParser = require('body-parser');
 const passport = require('passport');
@@ -24,10 +25,14 @@ app.use(bodyParser.urlencoded({
     limit: "50mb",
     extended: false
 }));
-app.use(bodyParser.json({ limit: "50mb" }));
 
+app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb',extended: true }));
+
+app.get("/",(req,res)=>{
+    res.send("Hello Devs ");
+});
 
 app.use("/user", userRoute);
 
@@ -41,7 +46,8 @@ app.use("/pages", pagesRoute);
 app.use("/contact", contactRoute);
 app.use("/media", mediaRoute);
 app.use("/seo", seoRoute);
+app.use("/brand-store", brandstoreRoute);
 
-app.listen(port, () => {
+app.listen(process.env.PORT, () => {
     console.log(`App is listening at http://${process.env.HOST}:${process.env.PORT}`)
 });

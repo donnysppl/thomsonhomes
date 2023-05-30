@@ -1,52 +1,30 @@
-import { useState } from 'react'
+import Editor from 'ckeditor5-custom-build/build/ckeditor';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { useState } from 'react';
 
 export default function Demo() {
-  const [formValues, setFormValues] = useState([{ name: "", email: "" }])
-
-  let handleChange = (i, e) => {
-    let newFormValues = [...formValues];
-    newFormValues[i][e.target.name] = e.target.value;
-    setFormValues(newFormValues);
-  }
-
-  let addFormFields = () => {
-    setFormValues([...formValues, { name: "", email: "" }])
-  }
-
-  let removeFormFields = (i) => {
-    let newFormValues = [...formValues];
-    newFormValues.splice(i, 1);
-    setFormValues(newFormValues)
-  }
-
-  let handleSubmit = (event) => {
-    event.preventDefault();
-    alert(JSON.stringify(formValues));
-  }
+  const [discription, setdiscription] = useState();
   return (
     <>
-      <div className="App">
-        <form onSubmit={handleSubmit}>
-          {formValues.map((element, index) => (
-            <div className="form-inline" key={index}>
-              <label>Name</label>
-              <input type="text" name="name" value={element.name || ""} onChange={e => handleChange(index, e)} />
-              <label>Email</label>
-              <input type="text" name="email" value={element.email || ""} onChange={e => handleChange(index, e)} />
-              {
-                index ?
-                  <button type="button" className="button remove" onClick={() => removeFormFields(index)}>Remove</button>
-                  : null
-              }
-            </div>
-          ))}
-          <div className="button-section">
-            <button className="button add  me-2" type="button" onClick={() => addFormFields()}>Add</button>
-            <button className="button submit " type="submit">Submit</button>
-          </div>
-        </form>
-      </div>
+      <CKEditor editor={Editor} data="<p>Hello</p>" id="discription" name="discription"
+        onReady={(editor) => {
+          // console.log('editor is readt', editor);
+        }}
+        onChange={(e, editor) => {
+          const data = editor.getData();
+          setdiscription(data);
+          // console.log({ e, editor, data });
+        }}
+        onBlur={(e, editor) => {
+          // console.log('blur', editor);
+        }}
+        onFocus={(e, editor) => {
+          // console.log('Focus', editor);
+        }} />
 
+        {
+          discription && discription
+        }
     </>
   )
 }

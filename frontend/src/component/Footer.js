@@ -1,4 +1,7 @@
 export default function Footer() {
+
+    const date = new Date().getFullYear();
+
     return (
         <>
 
@@ -53,16 +56,8 @@ export default function Footer() {
                             <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
                                 <h6 className="text-uppercase mb-4 font-weight-bold">Follow us</h6>
 
-
-                                <a
-                                    className="btn btn-primary btn-floating m-1"
-
-                                    href="#!"
-                                    role="button"
-                                ><i className="fab fa-facebook-f"></i
-                                ></a>
-
-
+                                <a className="btn btn-primary btn-floating m-1" href="#!" role="button" >
+                                    <i className="fab fa-facebook-f"></i ></a>
                                 <a
                                     className="btn btn-primary btn-floating m-1"
 
@@ -114,7 +109,7 @@ export default function Footer() {
 
 
 
-                <div className="text-center border-top p-3" > © 2023 Copyright by SUPER PLASTRONICS PRIVATE LIMITED
+                <div className="text-center border-top p-3" > © {date && date} Copyright by SUPER PLASTRONICS PRIVATE LIMITED
 
                 </div>
 

@@ -41,7 +41,7 @@ export default function Index() {
     },
     {
       name: 'Image',
-      cell: (row) => <img className='data-table-img' src={nodeurl + row.cateimg} />
+      cell: (row) => <img className='data-table-img' src={row.cateimg} />
     },
     {
       name: 'Name',

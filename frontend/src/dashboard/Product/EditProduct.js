@@ -15,12 +15,17 @@ export default function EditProduct() {
     const [addProduct, setaddProduct] = useState({
         name: '',
         slug: '',
+        metatitle: '',
+        metadiscrip: '',
+        metakeyword: '',
+        category: '',
+        categoryslug: '',
+        parentcategory: '',
         model: '',
         shortdiscrip: '',
         buylink: '',
-        metakeyword: '',
-        metatitle: '',
-        metadiscrip: '',
+        discription: '',
+        mainproductimg: '',
     });
     const [cateName, setcateName] = useState();
     const [cateSlug, setcateSlug] = useState();
@@ -29,13 +34,14 @@ export default function EditProduct() {
     const [discription, setdiscription] = useState();
 
     const [formValues, setFormValues] = useState([{ index: "", link: "" }])
+    const [fvproductimg, setfvproductimg] = useState([{ index: "", link: "" }])
     const [cateList, setcateList] = useState();
   
 
     useEffect(() => {
 
         const productPrevData = async () => {
-            await fetch(nodeurl + `product/${id}`,{
+            await fetch(nodeurl + `product/listdata/${id}`,{
                 method: 'GET', 
             }).then(res => res.json())
             .then(res => {
@@ -47,9 +53,11 @@ export default function EditProduct() {
                     setcateName(res.response.category);
                     setcateSlug(res.response.categoryslug);
                     setparentcategory(res.response.parentcategory);
+                    setfvproductimg(res.response.productimg);
                 }
                 else {
-                    
+                    alert(res.message);
+                    window.location.reload();
                 }
                 allCategoryList();
             })
@@ -81,20 +89,36 @@ export default function EditProduct() {
             });
     }
 
-    let handleChange = (i, e) => {
+    const handleChange = (i, e) => {
         let newFormValues = [...formValues];
         newFormValues[i][e.target.name] = e.target.value;
         setFormValues(newFormValues);
     }
 
-    let addFormFields = () => {
+    const hcprodImg = (i, e) => {
+        let newFormValues = [...fvproductimg];
+        newFormValues[i][e.target.name] = e.target.value;
+        setfvproductimg(newFormValues);
+    }
+
+    const addFormFields = () => {
         setFormValues([...formValues, { index: "", link: "" }])
     }
 
-    let removeFormFields = (i) => {
+    const addprodImg = () => {
+        setfvproductimg([...fvproductimg, { index: "", link: "" }])
+    }
+
+    const removeFormFields = (i) => {
         let newFormValues = [...formValues];
         newFormValues.splice(i, 1);
         setFormValues(newFormValues)
+    }
+
+    const removeprodImg = (i) => {
+        let newFormValues = [...fvproductimg];
+        newFormValues.splice(i, 1);
+        setfvproductimg(newFormValues)
     }
 
     const inputHandler = (e) => {
@@ -131,6 +155,9 @@ export default function EditProduct() {
             'metadiscrip': addProduct.metadiscrip,
             'discription': discription,
             'productrpd': formValues,
+            'parentcategory': parentcategory,
+            'productimg': fvproductimg,
+            'mainproductimg':addProduct.mainproductimg,
         }
         console.log(data)
 
@@ -149,8 +176,8 @@ export default function EditProduct() {
                         'Saved',
                         `${res.message}`,
                         'success'
-                    ).then(function() {
-                        navigate(`/admin/product/edit/img/${id}`);
+                    ).then(function () {
+                        window.location.reload();
                     });
                    
                 }
@@ -260,42 +287,91 @@ export default function EditProduct() {
                                             }} />
                                     </div>
 
-                                    <label htmlFor="link" className="form-label">Product RPD Image</label>
-                                    <div className='border rounded-3 p-3 mb-4'>
+                                    <div className="mb-3">
+                                        <label htmlFor="mainproductimg" className="form-label">Product Main Image</label>
+                                        <input type="text" className="form-control" id="mainproductimg" name="mainproductimg"
+                                            onChange={inputHandler} value={addProduct.mainproductimg} />
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor="link" className="form-label">Product Image</label>
+                                        <div className='border rounded-3 p-3 mb-4'>
 
 
-                                        {formValues && formValues.map((element, index) => (
-                                            <div className="form-inline" key={index}>
-                                                <div className="row mb-3">
+                                            {fvproductimg.map((element, index) => (
+                                                <div className="form-inline" key={index}>
+                                                    <div className="row mb-3">
 
-                                                    <div className="col-2">
-                                                        <label className='form-label'>Order / Index</label>
-                                                        <input className="form-control" placeholder='Order' type="number" name="index" value={element.index || ""} onChange={e => handleChange(index, e)} />
+                                                        <div className="col-2">
+                                                            <label className='form-label'>Order / Index</label>
+                                                            <input className="form-control" placeholder='Order' type="number" name="index" value={element.index || ""} onChange={e => hcprodImg(index, e)} />
 
+                                                        </div>
+                                                        <div className="col-7">
+                                                            <label className='form-label'>Product Image Link</label>
+                                                            <input className="form-control" type="text" placeholder='Image Link' name="link" value={element.link || ""} onChange={e => hcprodImg(index, e)} />
+
+                                                        </div>
+                                                        {
+                                                            index ?
+                                                                <div className="col-3 d-flex align-items-center">
+                                                                    <button type="button" className="btn btn-danger remove mt-3" onClick={() => removeprodImg(index)}>Remove</button>
+                                                                </div>
+                                                                : null
+                                                        }
                                                     </div>
-                                                    <div className="col-7">
-                                                        <label className='form-label'>Product RPD Image Link</label>
-                                                        <input className="form-control" type="text" placeholder='Image Link' name="link" value={element.link || ""} onChange={e => handleChange(index, e)} />
 
-                                                    </div>
-                                                    {
-                                                        index ?
-                                                            <div className="col-3 d-flex align-items-center">
-                                                                <button type="button" className="btn btn-danger remove mt-3" onClick={() => removeFormFields(index)}>Remove</button>
-                                                            </div>
-                                                            : null
-                                                    }
                                                 </div>
+                                            ))}
+                                            <div className="button-section">
+                                                {
+                                                    fvproductimg.length !== 15 ?
+                                                        <button className="btn btn-light fw-semibold" type="button" onClick={() => addprodImg()}>Add</button>
+                                                        : null
+                                                }
 
                                             </div>
-                                        ))}
-                                        <div className="button-section">
-                                            {
-                                                formValues && formValues.length !== 15 ?
-                                                    <button className="btn btn-light fw-semibold" type="button" onClick={() => addFormFields()}>Add</button>
-                                                    : null
-                                            }
+                                        </div>
+                                    </div>
 
+                                    <div>
+                                        <label htmlFor="link" className="form-label">Product RPD Image</label>
+                                        <div className='border rounded-3 p-3 mb-4'>
+
+
+                                            {formValues.map((element, index) => (
+                                                <div className="form-inline" key={index}>
+                                                    <div className="row mb-3">
+
+                                                        <div className="col-2">
+                                                            <label className='form-label'>Order / Index</label>
+                                                            <input className="form-control" placeholder='Order' type="number" name="index" value={element.index || ""} onChange={e => handleChange(index, e)} />
+
+                                                        </div>
+                                                        <div className="col-7">
+                                                            <label className='form-label'>Product RPD Image Link</label>
+                                                            <input className="form-control" type="text" placeholder='Image Link' name="link" value={element.link || ""} onChange={e => handleChange(index, e)} />
+
+                                                        </div>
+                                                        {
+                                                            index ?
+                                                                <div className="col-3 d-flex align-items-center">
+                                                                    <button type="button" className="btn btn-danger remove mt-3" onClick={() => removeFormFields(index)}>Remove</button>
+                                                                </div>
+                                                                : null
+                                                        }
+                                                    </div>
+
+                                                </div>
+                                            ))}
+                                            <div className="button-section">
+                                                {
+                                                    formValues.length !== 15 ?
+                                                        <button className="btn btn-light fw-semibold" type="button" onClick={() => addFormFields()}>Add</button>
+                                                        : null
+                                                }
+
+                                            </div>
                                         </div>
                                     </div>
 

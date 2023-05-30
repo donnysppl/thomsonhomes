@@ -59,7 +59,7 @@ router.delete("/category/delete/:id",productCtrl.categoryDelete);
 router.post("/add",productCtrl.productAdd);
 router.get("/list",productCtrl.productList);
 router.get("/list/:category",productCtrl.productlistbyCate);
-router.get("/:id",productCtrl.productPerListData);
+router.get("/listdata/:id",productCtrl.productlistbyID);
 router.delete("/delete/:id",productCtrl.productDelete);
 router.delete("/deleteimg/:productid/:productimgid",productCtrl.prodImgDelete);
 router.put("/edit/:id", productCtrl.productEdit);

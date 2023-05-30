@@ -4,9 +4,9 @@ const path = require('path');
 
 // category
 const categoryAdd = async (req, res) => {
-    console.log(req.body, req.file);
+    console.log(req.body);
 
-    if (!req.body.name || !req.body.order || !req.body.link || !req.body.slug || !req.file || !req.body.metatitle || !req.body.metadescription || !req.body.metakeywords) {
+    if (!req.body.name || !req.body.order || !req.body.slug || !req.body.metatitle || !req.body.metadescription || !req.body.metakeywords) {
         res.status(400).json({ status: 400, message: 'Please Enter the data properly' });
     }
     else {
@@ -16,11 +16,8 @@ const categoryAdd = async (req, res) => {
             res.status(400).json({ status: 400, 'message': 'Data already Exist' });
         }
         else {
-            const { name, order, link, parentcate, childcate, slug, metakeywords, metatitle, metadescription } = req.body;
-            const { filename } = req.file;
-            const cateimg = `public/image/category/${filename}`;
-            const cateimgfilename = `${filename}`;
-            let data = await Product.category({ name, order, link, parentcate, childcate, slug, cateimg, cateimgfilename, metakeywords, metatitle, metadescription });
+            const { name, order, parentcate, childcate, slug, metakeywords, metatitle, metadescription, cateimg } = req.body;
+            let data = await Product.category({ name, order, parentcate, childcate, slug, cateimg, metakeywords, metatitle, metadescription });
             let response = await data.save();
             console.log(response)
             res.status(200).json({ status: 200, 'message': 'Data Saved SuccessFully', 'response': response });
@@ -60,58 +57,28 @@ const categoryDelete = async (req, res) => {
             res.status(400).json({ status: 400, 'message': err });
         }
         else {
-            fs.unlink(directoryPath + fileName, (err) => {
-                if (err) {
-                    console.log(err);
-                    res.status(400).json({ status: 400, 'message': 'data deleted but image not', });
-                }
-                else {
-                    console.log("Category Image Delete");
-                    res.status(200).json({ status: 200, 'message': 'Data Deleted' });
-                }
-            })
+            res.status(200).json({ status: 200, 'message': 'Data Deleted' });
         }
-    }
-    );
+    });
 
 }
 
 const categoryEdit = async (req, res) => {
     const category_id = req.params.id;
     let data = await Product.category.findById(category_id);
-    const fileName = data && data.cateimgfilename;
-    const directoryPath = path.join(__dirname, '../public/image/category/');
 
-    console.log(req.file);
-    var updateCategoryRec = null;
-    if (req.file) {
-        updateCategoryRec = {
-            name: req.body.name,
-            order: req.body.order,
-            link: req.body.link,
-            parentcate: req.body.parentcate,
-            childcate: req.body.childcate,
-            slug: req.body.slug,
-            cateimg: `public/image/category/${req.file.filename}`,
-            cateimgfilename: req.file.filename,
-            metakeywords: req.body.metakeywords,
-            metatitle: req.body.metatitle,
-            metadescription: req.body.metadescription,
-        }
-    }
-    else {
-        updateCategoryRec = {
-            name: req.body.name,
-            order: req.body.order,
-            link: req.body.link,
-            parentcate: req.body.parentcate,
-            childcate: req.body.childcate,
-            slug: req.body.slug,
-            metakeywords: req.body.metakeywords,
-            metatitle: req.body.metatitle,
-            metadescription: req.body.metadescription,
-        }
-    }
+    var updateCategoryRec = {
+        name: req.body.name,
+        order: req.body.order,
+        link: req.body.link,
+        parentcate: req.body.parentcate,
+        childcate: req.body.childcate,
+        slug: req.body.slug,
+        metakeywords: req.body.metakeywords,
+        metatitle: req.body.metatitle,
+        metadescription: req.body.metadescription,
+        cateimg: req.body.cateimg,
+    };
 
     Product.category.findByIdAndUpdate(req.params.id, {
         $set: updateCategoryRec
@@ -121,20 +88,7 @@ const categoryEdit = async (req, res) => {
             res.status(400).json({ status: 400, 'message': err });
         }
         else {
-            if (req.file) {
-                fs.unlink(directoryPath + fileName, (err) => {
-                    if (err) {
-                        console.log(err);
-                        res.status(400).json({ status: 400, 'message': 'Data change But the old image is not delete', });
-                    }
-                    else {
-                        res.status(200).json({ status: 200, 'message': 'Data Changes with image', result });
-                    }
-                })
-            }
-            else {
-                res.status(200).json({ status: 200, 'message': 'data change', result });
-            }
+            res.status(200).json({ status: 200, 'message': 'data change', result });
         }
 
     });
@@ -143,9 +97,8 @@ const categoryEdit = async (req, res) => {
 
 // product
 const productAdd = async (req, res) => {
-    console.log(req.body)
-    if (!req.body.name || !req.body.slug || !req.body.metatitle || !req.body.metadiscrip || !req.body.metakeyword || !req.body.category || !req.body.model ) {
-        res.status(400).json({ status: 400, 'message': 'Please Enter the data properly ' });
+    if (!req.body.name || !req.body.slug || !req.body.metatitle || !req.body.metadiscrip || !req.body.metakeyword || !req.body.category || !req.body.model) {
+        res.status(400).json({ status: 400, 'message': 'Please Enter the data properly' });
     }
     else {
         let productCheck = await Product.product.findOne({ slug: req.body.slug });
@@ -153,8 +106,8 @@ const productAdd = async (req, res) => {
             res.status(400).json({ status: 400, 'message': 'Data already Exist' });
         }
         else {
-            const { name, slug, category, model, shortdiscrip, buylink,parentcategory, discription, productrpd, metatitle ,metadiscrip,metakeyword } = req.body;
-            const data = await Product.product({ name, slug, category, model, shortdiscrip,parentcategory, buylink, discription, productrpd, metatitle ,metadiscrip,metakeyword });
+            const { name, slug, metatitle, metadiscrip, metakeyword, category, categoryslug, parentcategory, model, shortdiscrip, buylink, discription, mainproductimg, productimg, productrpd } = req.body;
+            const data = await Product.product({ name, slug, metatitle, metadiscrip, metakeyword, category, categoryslug, parentcategory, model, shortdiscrip, buylink, discription, mainproductimg, productimg, productrpd });
             let response = await data.save();
             console.log(response)
             res.status(200).json({ status: 200, 'message': 'ok', 'response': response });
@@ -173,7 +126,26 @@ const productList = async (req, res) => {
 }
 
 const productPerListData = async (req, res) => {
-    console.log(req.params.id)
+    //     console.log(req.params)
+    //     // const product_id = req.params.id;
+    //     // let data = await Product.product.findById(product_id);
+    //     // console.log(data)
+    //     // if (data) {
+    //     //     res.status(200).json({ status: 200, 'message': 'ok', 'response': data });
+    //     // }
+    //     // else {
+    //     //     res.status(400).json({ status: 400, 'message': 'Data Not Found' });
+    //     // }
+    //     let data = await Product.product.find();
+    //     if (data) {
+    //         res.status(200).json({ status: 200, 'message': 'ok', 'response': data });
+    //     }
+    //     else {
+    //         res.status(400).json({ status: 400, 'message': 'Data Not Found' });
+    //     }
+}
+
+const productlistbyID = async (req, res) => {
     const product_id = req.params.id;
     let data = await Product.product.findById(product_id);
     if (data) {
@@ -186,7 +158,10 @@ const productPerListData = async (req, res) => {
 
 const productlistbyCate = async (req, res) => {
     const product_category = req.params.category;
-    let data = await Product.product.find({category: product_category});
+    let data = await Product.product.find({$or: [
+        {parentcategory : product_category},
+        {category : product_category}
+    ]});
     if (data) {
         res.status(200).json({ status: 200, 'message': 'ok', 'response': data });
     }
@@ -198,25 +173,13 @@ const productlistbyCate = async (req, res) => {
 const productDelete = async (req, res) => {
     const product_id = req.params.id;
     let data = await Product.product.findById(product_id);
-    // const fileName = data && data.cateimgfilename;
-    const directoryPath = path.join(__dirname, `../public/image/product/${req.params.id}`);
 
     Product.product.findByIdAndDelete(product_id, (err, result) => {
         if (err) {
             res.status(400).json({ status: 400, 'message': err });
         }
         else {
-            // res.status(200).json({ status: 200, 'message': 'Data Deleted' });
-            fs.rmdir(directoryPath, { recursive: true, force: true }, (err) => {
-                if (err) {
-                    console.log(err);
-                    res.status(400).json({ status: 400, 'message': 'data deleted but image not', });
-                }
-                else {
-                    console.log("Product Image Delete");
-                    res.status(200).json({ status: 200, 'message': 'Data Deleted' });
-                }
-            })
+            res.status(200).json({ status: 200, 'message': 'Data Deleted' });
         }
     }
     );
@@ -237,10 +200,13 @@ const productEdit = async (req, res) => {
         discription: req.body.discription,
         slug: req.body.slug,
         productrpd: req.body.productrpd,
-        metatitle : req.body.metatitle,
+        productimg: req.body.productimg,
+        mainproductimg: req.body.mainproductimg,
+        metatitle: req.body.metatitle,
         metadiscrip: req.body.metadiscrip,
         metakeyword: req.body.metakeyword,
         parentcategory: req.body.parentcategory,
+        categoryslug: req.body.categoryslug,
     }
 
     Product.product.findByIdAndUpdate(req.params.id, {
@@ -329,14 +295,14 @@ const prodImgEdit = async (req, res) => {
         res.status(400).json({ status: 400, 'message': 'Product Data Not Found' });
     }
     else {
-        if(req.files){
-            if(req.files.mainproductimg){
+        if (req.files) {
+            if (req.files.mainproductimg) {
                 const { filename } = req.files.mainproductimg[0];
                 const mainproductimg = `public/image/product/${product_id}/${filename}`;
                 data.mainproductimg = mainproductimg;
                 data.mainproductimgfilename = filename;
             }
-            else if(req.files.productimg){
+            else if (req.files.productimg) {
                 for (let i = 0; i < req.files.productimg.length; i++) {
                     data.productimg.push({
                         productimgurl: `public/image/product/${product_id}/${req.files.productimg[i].filename}`,
@@ -346,10 +312,10 @@ const prodImgEdit = async (req, res) => {
             }
             const result = await data.save();
             res.status(200).json({ status: 200, 'message': 'Image Uploaded', result });
-           
+
         }
-        else{
-            res.status(200).json({ status: 200, 'message': 'Data Update Without Upload Any Image'});
+        else {
+            res.status(200).json({ status: 200, 'message': 'Data Update Without Upload Any Image' });
         }
     }
 }
@@ -357,5 +323,6 @@ const prodImgEdit = async (req, res) => {
 
 module.exports = {
     categoryAdd, categoryList, categoryListperId, categoryDelete, categoryEdit,
-    productAdd, productPerListData, productList, productDelete, productEdit, productImgAdd, prodImgDelete, prodImgEdit, productlistbyCate
+    productAdd, productPerListData, productList, productDelete, productEdit, productImgAdd,
+    prodImgDelete, prodImgEdit, productlistbyCate, productlistbyID
 }

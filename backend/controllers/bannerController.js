@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const bannerAdd = async (req, res) => {
-    console.log(req.body, req.files);
+    // console.log(req.body, req.files);
     if (!req.body.name || !req.body.order || !req.body.link || !req.files.bannerImg || !req.files.bannerMobImg) {
         res.status(400).json({ status: 400, message: 'Please Enter the data properly' });
     }
@@ -53,8 +53,6 @@ const bannerEdit = async (req, res) => {
                 status: req.body.status,
                 bannerImg: `public/image/banner/${req.files.bannerImg[0].filename}`,
                 bannerImgFilename:req.files.bannerImg[0].filename,
-                // bannerMobImg: `public/image/banner/${req.files.bannerMobImg[0].filename}`,
-                // bannerMobImgFilename: req.files.bannerMobImg[0].filename,
             }
         }
         else if(req.files.bannerMobImg){
@@ -63,8 +61,6 @@ const bannerEdit = async (req, res) => {
                 order: req.body.order,
                 link: req.body.link,
                 status: req.body.status,
-                // bannerImg: `public/image/banner/${req.files.bannerImg[0].filename}`,
-                // bannerImgFilename:req.files.bannerImg[0].filename,
                 bannerMobImg: `public/image/banner/${req.files.bannerMobImg[0].filename}`,
                 bannerMobImgFilename: req.files.bannerMobImg[0].filename,
             }

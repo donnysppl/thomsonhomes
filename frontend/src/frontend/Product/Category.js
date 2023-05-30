@@ -53,13 +53,13 @@ export default function Category() {
                             cateData && cateData.map((item, index) => {
                                 return (
                                     <div key={index} className="col-lg-3 col-md-4 col-6 mb-5 category-card-col">
-                                        <Link to={`/category/${item.slug}`}>
+                                        <Link to={`/category/${item.name}`}>
                                         <div className="category-card bg-dark text-col-dark position-relative">
                                             <svg className="category-top-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill="#D0021B" d="M47.3,-24.4C50.4,-5.7,34.7,10.2,14.8,25.9C-5,41.6,-28.9,57.1,-42.8,49.3C-56.6,41.5,-60.4,10.3,-51.6,-16.2C-42.8,-42.7,-21.4,-64.5,0.3,-64.6C22.1,-64.7,44.1,-43.1,47.3,-24.4Z" transform="translate(100 100)" />
                                             </svg>
                                             <div className="category-card-img-part">
-                                                <img src={nodeurl + item.cateimg} alt={item.name} className="img-fluid w-100" />
+                                                <img src={item.cateimg} alt={item.name} className="img-fluid w-100" />
                                             </div>
                                             <div className="category-card-text-part">
                                                 <h4>{item.name}</h4>

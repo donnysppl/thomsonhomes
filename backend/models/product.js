@@ -8,12 +8,10 @@ const categorySchema = new Schema({
   name: String,
   slug: String,
   order: Number,
-  link: String,
   cateimg: String,
   metatitle: String,
   metadescription: String,
   metakeywords: String,
-  cateimgfilename: String,
   parentcate: Boolean,
   childcate: String,
 }, {
@@ -36,14 +34,8 @@ const productSchema = new Schema({
   buylink: String,
   discription: String,
   mainproductimg: String,
-  // productimg : Array,
-  // productrpd : Array,
-  productimg: [{
-    productimgurl: String,
-    productimgfilename: String,
-  }],
-  productrpd: [],
-  mainproductimgfilename: String,
+  productimg: Array,
+  productrpd: Array,
 }, {
   timestamps: true
 });

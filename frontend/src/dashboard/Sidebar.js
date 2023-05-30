@@ -33,9 +33,9 @@ export default function Sidebar() {
           <li className="nav-item">
             <NavLink className="nav-link" to={'/admin/contact'}>Contact</NavLink>
           </li>
-          {/* <li className="nav-item">
-            <NavLink className="nav-link" to={'/admin/seo'}>Seo</NavLink>
-          </li> */}
+          <li className="nav-item">
+            <NavLink className="nav-link" to={'/admin/brand-store'}>Brand Store</NavLink>
+          </li>
         </ul>
       </div>
     </>

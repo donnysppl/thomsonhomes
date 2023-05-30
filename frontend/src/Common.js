@@ -1,7 +1,21 @@
+import { useState } from "react";
+import { useEffect } from "react";
 
 export default function Common() {
 
+  const [token, settoken] = useState();
+
+  // const nodeurl = 'http://192.168.0.105:8000/';
   const nodeurl = 'http://localhost:8000/';
+  // const nodeurl = 'https://thomson.shopsppl.net/';
+
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      settoken(token);
+    }
+  }, [])
+  
 
   const customStyles = {
     rows: {
@@ -24,7 +38,7 @@ export default function Common() {
     },
   };
 
+  const tokenValue = window.localStorage.getItem("token") || token;
 
-
-  return { nodeurl, customStyles }
+  return { nodeurl, customStyles, tokenValue }
 }

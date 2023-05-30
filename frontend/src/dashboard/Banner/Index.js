@@ -6,9 +6,8 @@ import { FiEdit2 } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 export default function Index() {
 
-  const { nodeurl, customStyles } = Common();
+  const { nodeurl, tokenValue } = Common();
   const [cateList, setcateList] = useState();
-
 
   useEffect(() => {
     categoryListFunc();
@@ -18,11 +17,16 @@ export default function Index() {
   const categoryListFunc = async () => {
     await fetch(nodeurl + 'banner/list', {
       method: 'GET',
+      headers: { 'Authorization': `bearer ${tokenValue}` },
     }).then(res => res.json())
       .then(res => {
         console.log(res.response);
         if (res.status === 200) {
           setcateList(res.response);
+        }
+        else if (res.status === 401) {
+          alert(res.message);
+          window.location.reload();
         }
         else {
           alert(res.message);

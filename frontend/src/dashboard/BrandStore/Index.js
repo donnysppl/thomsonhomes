@@ -7,7 +7,7 @@ import ActionHeader from '../compo/ActionHeader';
 export default function Index() {
 
   const { nodeurl, customStyles } = Common();
-  const [prodList, setprodList] = useState();
+  const [cateList, setcateList] = useState();
 
   useEffect(() => {
     categoryListFunc();
@@ -15,13 +15,13 @@ export default function Index() {
 
 
   const categoryListFunc = async () => {
-    await fetch(nodeurl + 'product/list', {
+    await fetch(nodeurl + 'brand-store/list', {
       method: 'GET',
     }).then(res => res.json())
       .then(res => {
-        console.log(res.response);
+        console.log(res.result);
         if (res.status === 200) {
-          setprodList(res.response);
+          setcateList(res.result);
         }
         else {
           alert(res.message);
@@ -38,40 +38,33 @@ export default function Index() {
       name: 'Index',
       selector: (row, idx) => idx + 1,
       cellExport: (row, idx) => idx + 1,
-      width: '80px',
-    },
-    {
-      name: 'Image',
-      cell: (row) => <img className='data-table-img' src={row.mainproductimg} />,
-      width: '100px',
     },
     {
       name: 'Name',
       selector: row => row.name,
       cellExport: row => row.name,
-      width: '400px',
-    },
-    {
-      name: 'model',
-      selector: row => row.model,
-      cellExport: row => row.model,
-      width: '100px',
     },
     {
       name: 'slug',
       selector: row => row.slug,
       cellExport: row => row.slug,
-      width: '200px',
+    },
+    {
+      name: 'Page Link',
+      selector: row => <Link className='text-white' to={`${window.location.origin}/brand-store/${row.slug}`}>
+        {`${window.location.origin}/brand-store/${row.slug}`}
+      </Link>,
+      cellExport: row => `${window.location.origin}/brand-store/${row.slug}`,
     },
     {
       name: 'Action',
       cell: (row) => <>
-        <Link to={`/admin/product/edit/${row._id}`}>
+        <Link to={`/admin/brand-store/edit/${row._id}`}>
           <button onClick={() => console.log(row._id)} className='btn btn-primary py-1 px-2 me-2 table-btn'>
             Edit </button>
         </Link>
         <Link >
-          <button onClick={() => productDelete(row._id)} className='btn btn-danger py-1 px-2 table-btn'>
+          <button onClick={() => brandStoreDelete(row._id)} className='btn btn-danger py-1 px-2 table-btn'>
             Delete </button>
         </Link>
       </>
@@ -102,32 +95,32 @@ export default function Index() {
     },
   }, 'dark');
 
-  const productDelete = async (id) => {
+  const brandStoreDelete = async (id) => {
 
-    if (!id) {
+    if(!id){
       alert("Somthing went wrong. Please Reload the page");
     }
-    else {
-      if (window.confirm('Are you sure you want to delete the Product?')) {
-        await fetch(nodeurl + `product/delete/${id}`, {
-          method: 'DELETE',
+    else{
+      if (window.confirm('Are you sure you want to delete the Brand Store?')) {
+        await fetch(nodeurl + `brand-store/delete/${id}`,{
+          method : 'DELETE',
         }).then(res => res.json())
-          .then(res => {
-            console.log(res);
-            if (res.status === 200) {
-              alert(res.message);
-              window.location.reload();
-            }
-            else {
-              alert(res.message);
-            }
-          })
-          .catch(err => {
-            console.log(err);
-          });
+        .then(res => {
+          console.log(res);
+          if (res.status === 200) {
+            alert(res.message);
+            window.location.reload();
+          }
+          else {
+            alert(res.message);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
 
       } else {
-        console.log('Thing was not delete the Product.');
+        console.log('Thing was not delete the Brand Store.');
       }
     }
   }
@@ -140,12 +133,12 @@ export default function Index() {
           <div className="col-12">
             <div className="action-header-part dashboard-bg-light rounded-3 p-4">
 
-              <ActionHeader actiontext={'Product Details'} actionlinktext={'Add New'} actionlink={'/admin/product/add'} />
+              <ActionHeader actiontext={'Brand Store Details'} actionlinktext={'Add New'} actionlink={'/admin/brand-store/add'} />
 
               <div>
                 <DataTable theme='solarized' customStyles={customStyles}
                   columns={columns} pagination highlightOnHover
-                  data={prodList}
+                  data={cateList}
                 />
               </div>
             </div>

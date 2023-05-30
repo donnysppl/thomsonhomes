@@ -18,7 +18,7 @@ const menuData = [
     {
         id: 3,
         name: 'TV',
-        link: 'tv',
+        link: '/category/televisions',
         submenu: [
             {
                 id: 3.1,
@@ -135,7 +135,6 @@ const menuData = [
         name: 'Contact',
         link: '/contact',
     }
-
 ]
 
 export default function Header() {

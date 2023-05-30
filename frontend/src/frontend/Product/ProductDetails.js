@@ -14,6 +14,8 @@ import "swiper/css/thumbs";
 import Common from "../../Common";
 import Loader from "../../Loader";
 
+import { useScroll, useTransform, motion } from 'framer-motion';
+
 export default function ProductDetails() {
     const { id } = useParams();
     const { nodeurl } = Common();
@@ -26,16 +28,19 @@ export default function ProductDetails() {
     const [productrpd, setproductrpd] = useState([]);
     const [specification, setspecification] = useState();
 
+    const { scrollYProgress } = useScroll();
+    const xstyle = useTransform(scrollYProgress, [0, 1], [0, -600]);
+
     useEffect(() => {
         const productDetailData = async () => {
-            await fetch(nodeurl + `product/list/${id}`, {
+            await fetch(nodeurl + `product/listdata/${id}`, {
                 method: 'GET',
             }).then(res => res.json())
                 .then(res => {
                     console.log(res);
                     if (res.status === 200) {
                         setprodResData(res.response);
-                        setprodMainImg(nodeurl + res.response.mainproductimg);
+                        setprodMainImg(res.response.mainproductimg);
                         setproductimg(res.response.productimg);
                         setproductrpd(res.response.productrpd);
                         setspecification(res.response.discription);
@@ -51,7 +56,7 @@ export default function ProductDetails() {
         }
         productDetailData();
 
-    }, [id,nodeurl])
+    }, [id, nodeurl])
 
     const pillsTab = window.$('#pills-tab').offset();
     const pillsTabTop = pillsTab && pillsTab.top;
@@ -62,22 +67,43 @@ export default function ProductDetails() {
         if (window.$(window).scrollTop() > pillsTabTop) {
             window.$('#pills-tab').addClass('product-tab-sticky');
         }
-        else{
+        else {
             window.$('#pills-tab').removeClass('product-tab-sticky');
         }
     }
 
     return (
         <>
-            <section className={`single single-product position-relative overflow-hidden ptb-4 ${loader ? "h90vh" : null}`}>
+            <section className={`single single-product position-relative overflow-hidden ${loader ? "h90vh" : null}`}>
                 {
                     loader ? <Loader /> : null
                 }
-                
-                <div className="container pb-5 position-relative"  >
-                <div className="product-cate-highlight">{prodResData && prodResData.category}</div>
+
+                <div className="container position-relative" >
+
+                    <div className="row pt-4">
+                        <div className="col-12">
+                            <div className="breadcrum">
+                                <nav aria-label="breadcrumb">
+                                    <ol className="breadcrumb">
+                                        <li className="breadcrumb-item">
+                                            <Link to={'/'}>Home</Link>
+                                        </li>
+                                        <li className="breadcrumb-item">
+                                            <Link to={'/product'}>Product</Link>
+                                        </li>
+                                        <li className="breadcrumb-item active fw-semibold" aria-current="page">
+                                            {prodResData && prodResData.name}
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="row gap-4">
                         <div className="col-lg-5 col-md-5 col-12">
+
                             <div className="product-slider-part">
                                 <Swiper
                                     style={{
@@ -102,13 +128,14 @@ export default function ProductDetails() {
                                         productimg && productimg.map((item, index) => {
                                             return (
                                                 <SwiperSlide key={index}>
-                                                    <img src={nodeurl + item.productimgurl} className="img-fluid" alt={prodResData && prodResData.name} />
+                                                    <img src={item.link} className="img-fluid" alt={prodResData && prodResData.name} />
                                                 </SwiperSlide>
                                             )
                                         })
                                     }
 
                                 </Swiper>
+                            
                                 <Swiper
                                     onSwiper={setThumbsSwiper}
                                     loop={true}
@@ -126,7 +153,7 @@ export default function ProductDetails() {
                                         productimg && productimg.map((item, index) => {
                                             return (
                                                 <SwiperSlide key={index}>
-                                                    <img src={nodeurl + item.productimgurl} className="img-fluid" alt={prodResData && prodResData.name} />
+                                                    <img src={item.link} className="img-fluid" alt={prodResData && prodResData.name} />
                                                 </SwiperSlide>
                                             )
                                         })
@@ -139,21 +166,25 @@ export default function ProductDetails() {
                             <div className="prod-main-contant pt-4">
                                 <h6 className="product-category">{prodResData && prodResData.category}</h6>
                                 <h1 className="product-name">{prodResData && prodResData.name}</h1>
-                                <h5 className="product-model">{prodResData && prodResData.model}</h5>
+                                <h5 className="product-model">Model : {prodResData && prodResData.model}</h5>
                                 <p className="product-short-disp">{prodResData && prodResData.shortdiscrip}</p>
-                            
+
                                 <div className="d-flex gap-3 product-btn-part ">
                                     <button className="frontweb-button">
-                                        <Link className="text-white" href={prodResData && prodResData.buylink}>Buy Now</Link>
+                                        <a className="text-white" href={prodResData && prodResData.buylink}>Buy Now</a>
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
+                <motion.div className="product-cate-highlight" style={{ x: xstyle }}>Thomson {prodResData && prodResData.category}</motion.div>
+
                 <hr />
-                <div className="container-fluid transall5 bg-dark" id="pills-tab-parent">
+                <div className="container-fluid transall5 bg-dark position-relative" id="pills-tab-parent">
+
+
                     <div className="row">
                         <div className="col-12">
                             <div className="single-prod-tab-part">
@@ -188,7 +219,7 @@ export default function ProductDetails() {
                                     <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabIndex="0">
                                         <div className="prod-specification-part text-col-dark">
                                             {
-                                                specification && <div dangerouslySetInnerHTML={{ __html: specification }} />
+                                                specification && <div className="prod-specification" dangerouslySetInnerHTML={{ __html: specification }} />
                                             }
                                         </div>
                                     </div>

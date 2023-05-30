@@ -22,7 +22,7 @@
 .dashboard .dashboard-heading-color{
     color: var(--text-col-dark);
 }
-.dashboard .dashboard-login{
+.dashboard-login{
     width: 100%;
     height: 100vh;
     padding-top: 10vh;
@@ -32,7 +32,7 @@
     background-color: var(--bg-light);
     border-radius: 10px;
 }
-.dashboard .form-control {
+.dashboard .form-control, .dashboard .form-select {
     padding: 0.6rem 1rem;
     background-color: transparent;
     background: transparent;
@@ -145,6 +145,11 @@
 }
 .dashboard .card-body svg{
     color: var(--text-col-light);
+}
+.dashboard span.input-count {
+    position: absolute;
+    left: -4.5%;
+    top: 0%;
 }
 .form-text{
     color: var(--text-col-light);

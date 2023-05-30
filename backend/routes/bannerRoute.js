@@ -5,7 +5,6 @@ var jwt = require('jsonwebtoken');
 const multer = require("multer");
 const fs = require('fs');
 var passport = require('passport');
-
 require('../config/passport')(passport);
 
 const path = require('path');
